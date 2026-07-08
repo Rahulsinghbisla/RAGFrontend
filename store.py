@@ -5,11 +5,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-pc = Pinecone(api_key="pcsk_4mGPBD_MSvWEvMCg5uJe1p2nbLY8VqiSRwuLbKZwdRWwP54cyvBtmKXXARYhH4JH4u1mqp")
+pc = Pinecone(api_key="pcsk_6yfVHZ_JxYdjn9grNyhzpe4zray1FqChd5h4NGD833eX4BArSQymNS3MdLjcCNrL3RxFLR")
 
 
-index = pc.Index("cuhbot")
+index = pc.Index("rag")
 
-embeddings=OpenAIEmbeddings()
+embeddings=OpenAIEmbeddings(model="text-embedding-3-small")
 
 vector_store = PineconeVectorStore(embedding=embeddings, index=index)
