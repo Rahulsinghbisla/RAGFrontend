@@ -11,7 +11,7 @@ st.set_page_config(
 st.title("📚 PDF RAG Chatbot")
 st.markdown("Upload a PDF and ask questions about it.")
 
-API_URL = "https://general-chat-with-rag.onrender.com/chat/"
+# API_URL = "https://general-chat-with-rag.onrender.com/chat"
 
 # session state
 if "chat_history" not in st.session_state:
@@ -83,17 +83,27 @@ if st.session_state.is_loading and st.session_state.pending_query:
             }
 
             try:
+                print("Enter try 1")
                 api_response = requests.post(API_URL, json=payload, timeout=60)
-                api_response.raise_for_status()
+                print("Enter try 2")
+                # api_response.raise_for_status()
+                print("Enter try 3")
                 data = api_response.json()
+                print("Enter try 4")
                 print(f"Response from API: {data}")
 
                 response = data.get("response", data)
                 if isinstance(response, list) and len(response) > 0:
-                    response = response[-1].get("content", str(response))
+                    last_item = response[-1]
+                    if isinstance(last_item, dict):
+                        response = last_item.get("content", str(last_item))
+                    else:
+                        response = str(last_item)
 
             except requests.exceptions.RequestException as e:
                 response = f"⚠️ Error calling chatbot API: {e}"
+            except Exception as e:
+                response = f"⚠️ Unexpected error: {e}"
 
         st.write(response)
 
