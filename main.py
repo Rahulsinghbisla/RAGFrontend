@@ -11,7 +11,7 @@ st.set_page_config(
 st.title("📚 PDF RAG Chatbot")
 st.markdown("Upload a PDF and ask questions about it.")
 
-# API_URL = "https://general-chat-with-rag.onrender.com/chat"
+API_URL = "https://general-chat-with-rag.onrender.com/chat"
 
 # session state
 if "chat_history" not in st.session_state:
